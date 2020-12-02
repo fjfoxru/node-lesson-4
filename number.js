@@ -4,27 +4,26 @@ const fs = require('fs');
 let writeStream = fs.createWriteStream('output.txt');
 let secretNumber;
 
-function Game() {
-    function getRandomInt(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min)) + min;
+function startNewGame() {
+    function getRandom() {
+        return Math.round(Math.random() + 1);
       }
-    secretNumber = getRandomInt(0, 2);
+    secretNumber = getRandom();
+    console.log(secretNumber);
     console.log('Орел или решка?')
 }
-Game();
+startNewGame();
 
 
 input.on('line', (data) => {
-    if (data === secretNumber) {
+    if (data == secretNumber) {
         console.log('Победа')
         writeStream.write('1');
-        Game()
+        startNewGame()
     } else {
         console.log('Проиграли ')
         writeStream.write('0');
-        Game()
+        startNewGame()
     }
     
 });
